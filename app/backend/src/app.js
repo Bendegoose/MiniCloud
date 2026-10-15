@@ -18,7 +18,6 @@ app.get('/api/status', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-
 app.use(notFound);
 
 app.listen(PORT, () => {
