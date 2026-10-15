@@ -1,3 +1,5 @@
+#Env variables
 .env
 
-app/backend/app/node_modules
+#Dependencies
+app/backend/node_modules
