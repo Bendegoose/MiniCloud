@@ -1,0 +1,35 @@
+name: minicloud
+services:
+  backend:
+    build:
+      context: ./backend
+    image: minicloud-backend-image:latest
+    container_name: minicloud-backend
+    environment:
+      PORT: ${BACKEND_APP_PORT}
+    expose:
+      - "${BACKEND_APP_PORT}"
+    networks:
+      - minicloud
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    image: minicloud-frontend-image:latest
+    container_name: minicloud-frontend
+    environment:
+      BACKEND_HOST: ${BACKEND_HOST}
+      BACKEND_PORT: ${BACKEND_PORT}
+    ports:
+      - "${FRONTEND_PORT}:80"
+    networks:
+      - minicloud
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  minicloud:
+    name: minicloud-network
+    driver: bridge
