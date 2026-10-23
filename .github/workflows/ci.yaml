@@ -1,0 +1,25 @@
+
+name: MiniCloud CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  docker-build:
+    name: Build Docker images
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build backend image
+        run: docker build -t minicloud-backend:ci ./app/backend
+
+      - name: Build frontend image
+        run: docker build -t minicloud-frontend:ci ./app/frontend
