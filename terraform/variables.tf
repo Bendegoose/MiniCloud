@@ -88,3 +88,8 @@ variable "eks_admin_principal_arn" {
   description = "IAM principal allowed to administer the EKS cluster"
   type        = string
 }
+
+variable "github_repository" {
+  description = "GitHub repository allowed to access AWS"
+  type        = string
+}

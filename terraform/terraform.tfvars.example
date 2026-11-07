@@ -17,4 +17,6 @@ eks_node_max_size      = 2
 
 # Replace with the ARN of your IAM user
 eks_admin_principal_arn = "arn:aws:iam::123456789012:user/your-iam-user"
+
+github_repository = "YOUR_GITHUB_USERNAME/MiniCloud"
 ```
