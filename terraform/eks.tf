@@ -18,4 +18,8 @@ resource "aws_eks_cluster" "minicloud_eks_cluster" {
       aws_subnet.private_b.id
     ]
   }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy
+  ]
 }

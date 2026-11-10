@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minicloud-frontend-deployment
+  labels:
+    app: minicloud-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minicloud-frontend
+  template:
+    metadata:
+      labels:
+        app: minicloud-frontend
+    spec:
+      containers:
+      - name: minicloud-frontend
+        image: 208905719820.dkr.ecr.eu-central-1.amazonaws.com/minicloud-frontend:a1b2c3d
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        env:
+        - name: BACKEND_HOST
+          value: "backend-service"
+        - name: BACKEND_PORT
+          value: "3001"
