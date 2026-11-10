@@ -52,7 +52,7 @@ variable "eks_cluster_version" {
 variable "public_access_cidrs" {
   description = "Allowed IP addresses for EKS Cluster"
   type        = list(string)
-  default     = ["188.36.177.180/32"]
+  default     = ["188.36.180.71/32"]
 }
 
 variable "eks_node_instance_type" {
@@ -65,6 +65,14 @@ variable "eks_node_desired_size" {
   description = "Desired number of worker nodes"
   type        = number
   default     = 1
+
+  validation {
+    condition = (
+      var.eks_node_desired_size >= var.eks_node_min_size &&
+      var.eks_node_desired_size <= var.eks_node_max_size
+    )
+    error_message = "Desired node count must be between min and max node count."
+  }
 }
 
 variable "eks_node_min_size" {

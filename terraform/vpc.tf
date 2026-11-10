@@ -20,7 +20,8 @@ resource "aws_subnet" "private_a" {
   cidr_block = var.aws_private_subnet_a
 
   tags = {
-    Name = "minicloud-private_a"
+    Name                              = "minicloud-private-a"
+    "kubernetes.io/role/internal-elb" = "1"
   }
 }
 
@@ -31,7 +32,8 @@ resource "aws_subnet" "private_b" {
   cidr_block = var.aws_private_subnet_b
 
   tags = {
-    Name = "minicloud-private_b"
+    Name                              = "minicloud-private-b"
+    "kubernetes.io/role/internal-elb" = "1"
   }
 }
 
@@ -43,7 +45,8 @@ resource "aws_subnet" "public_a" {
   cidr_block = var.aws_public_subnet_a
 
   tags = {
-    Name = "minicloud-public-a"
+    Name                     = "minicloud-public-a"
+    "kubernetes.io/role/elb" = "1"
   }
 }
 
@@ -54,7 +57,8 @@ resource "aws_subnet" "public_b" {
   cidr_block = var.aws_public_subnet_b
 
   tags = {
-    Name = "minicloud-public-b"
+    Name                     = "minicloud-public-b"
+    "kubernetes.io/role/elb" = "1"
   }
 }
 

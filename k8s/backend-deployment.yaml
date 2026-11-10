@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minicloud-backend-deployment
+  labels:
+    app: minicloud-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minicloud-backend
+  template:
+    metadata:
+      labels:
+        app: minicloud-backend
+    spec:
+      containers:
+      - name: minicloud-backend
+        image: 208905719820.dkr.ecr.eu-central-1.amazonaws.com/minicloud-backend:a1b2c3d
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3001
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+          periodSeconds: 5
+        env:
+        - name: PORT
+          value: "3001"
